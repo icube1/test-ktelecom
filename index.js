@@ -74,14 +74,14 @@ app.get('/notification1', (req, res) => {
     const data = JSON.parse(req.body);
     const sensors = JSON.stringify(data.sensors);
 
-    let post = { date: new Date(), cond: data.cond, description: data.desc, sensors: sensors }
+    let post = { date: new Date().setSeconds(0, 0), cond: data.cond, description: data.desc, sensors: sensors }
     let sql = 'INSERT INTO notification SET ?'
     let query = db.query(sql, post, err => {
         if(err){
             throw err
         }
         return res.status(200).send('data added into notification table');
-    })
-})
+    });
+});
 
 app.listen('3000', () => console.log('server started on port 3000'));
